@@ -131,7 +131,7 @@ v3.2.0  | API Rest CRUD con seguridad y auth basado en Bearer JWT.
 _Todos aquellos que ayudaron a levantar el proyecto desde sus inicios:_
 
 * **Paco Maciá** - _Trabajo Inicial_ - [pmacia](https://github.com/pmacia)
-* **Franciscoo Martínez** - _Documentación y desarrollo_ - [fmartinezfenoll](#fmartinezfenoll)
+* **Franciscoo Martínez** - _Documentación y desarrollo_ - [fmartinezfenoll](https://github.com/fmartinezfenoll)
 
 También puedes mirar la lista de todos los [contribuyentes](https://github.com/fmartinezfenoll/api-crud/graphs/contributors) quiénes han participado en este proyecto.
 
