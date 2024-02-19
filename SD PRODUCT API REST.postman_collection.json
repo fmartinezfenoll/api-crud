@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "http://localhost:3000/api/familia",
+			"name": "Devuelve objetos de familia",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -39,7 +39,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/api/familia/65d33f476c3166106637f3d4",
+			"name": "Devuelve un item con id",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -78,7 +78,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/api/familia/65d33e426c3166106637f3d1",
+			"name": "Elimina un objeto de familia",
 			"request": {
 				"method": "DELETE",
 				"header": [
@@ -114,7 +114,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/api/familia/65d33f476c3166106637f3d4",
+			"name": "Modifica familia",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -150,7 +150,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/api",
+			"name": "Devuelve la API",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -187,7 +187,7 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/api/familia",
+			"name": "Crea objeto en familia",
 			"request": {
 				"method": "POST",
 				"header": [
