@@ -150,9 +150,12 @@
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/api/mascotas",
+			"name": "http://localhost:3000/api",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [
 					{
 						"key": "token",
@@ -162,7 +165,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\"tipo\": \"Dálmata\",\n\"nombre\": \"Trufa\",\n\"edad\": 3\n}",
+					"raw": "{\n\"tipo\": \"Hermana\",\n\"nombre\": \"Rosana\",\n\"edad\": 15\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -170,22 +173,21 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/mascotas",
+					"raw": "http://localhost:3000/api",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"api",
-						"mascotas"
+						"api"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "http://localhost:3000/api/mascotas",
+			"name": "http://localhost:3000/api/familia",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -197,7 +199,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\"tipo\": \"Dálmata\",\n\"nombre\": \"Trufa\",\n\"edad\": 3\n}",
+					"raw": "{\n\"tipo\": \"Hermana\",\n\"nombre\": \"Rosana\",\n\"edad\": 15\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -205,7 +207,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/mascotas",
+					"raw": "http://localhost:3000/api/familia",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -213,7 +215,7 @@
 					"port": "3000",
 					"path": [
 						"api",
-						"mascotas"
+						"familia"
 					]
 				}
 			},
