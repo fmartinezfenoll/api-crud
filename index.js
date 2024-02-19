@@ -1,27 +1,57 @@
 'use strict'
-// declaraciones
-const port = process.env.PORT || 3000
+// inportaciones
+const config = require('./config');
 const express = require('express');
 const logger = require('morgan');
 const mongojs = require('mongojs');
+const cors = require('cors');
+// Declaraciones
+const port = config.PORT;
+const urlDB = config.DB;
+const accessToken = config.TOKEN;
 const app = express();
-var db = mongojs("SD"); // Enlazamos con la DB "SD"
-var id = mongojs.ObjectID; // Función para convertir un id textual en un objectID
+const db = mongojs(urlDB); // Enlazamos con la DB
+const id = mongojs.ObjectID; // Función para convertir un id textual en un objectID
+// Declaraciones para CORS
+var allowCrossTokenOrigin = (req, res, next) => {
+ res.header("Access-Control-Allow-Origin", "*"); // Permiso a cualquier URL. Mejor acotar
+ return next();
+};
+var allowCrossTokenMethods = (req, res, next) => {
+ res.header("Access-Control-Allow-Methods", "*"); // Mejor acotar (GET,PUT,POST,DELETE)
+ return next();
+};
+var allowCrossTokenHeaders = (req, res, next) => {
+ res.header("Access-Control-Allow-Headers", "*"); // Mejor acotar (Content-type)
+ return next();
+};
+// middleware
+var auth = (req, res, next) => { // declaramos la función auth
+ if ( !req.headers.token ) { // si no se envía el token...
+ res.status(401).json({ result: 'NO', msg: "Envía un código válido en la cabecera 'token'"});
+ return;
+ };
+ const queToken = req.headers.token; // recogemos el token de la cabecera llamada “token”
+ if ( queToken === accessToken ) { // si coincide con nuestro password...
+ return next(); // continuamos con la ejecución del código
+ } else { // en caso contrario...
+ res.status(401).json({ result: 'NO', msg: "No autorizado" });
+ };
+};
 // middlewares
 app.use(logger('dev')); // probar con: tiny, short, dev, common, combined
-app.use(express.urlencoded({ extended: false })) // parse application/x-www-form-urlencoded
-app.use(express.json()) // parse application/json
-// añadimos un trigger previo a las rutas para dar soporte a múltiples colecciones
+app.use(express.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
+app.use(express.json()); // parse application/json
+app.use(cors()); // activamos CORS
+app.use(allowCrossTokenOrigin); // configuramos origen permitido para CORS
+app.use(allowCrossTokenMethods); // configuramos métodos permitidos para CORS
+app.use(allowCrossTokenHeaders); // configuramos cabeceras permitidas para CORS
+// routes
 app.param("coleccion", (req, res, next, coleccion) => {
- console.log('param /api/:coleccion');
- console.log('colección: ', coleccion);
  req.collection = db.collection(coleccion);
  return next();
 });
-// routes
 app.get('/api', (req, res, next) => {
- console.log('GET /api');
- console.log(req.collection);
  db.getCollectionNames((err, colecciones) => {
  if (err) return next(err);
  res.json(colecciones);
@@ -34,38 +64,31 @@ app.get('/api/:coleccion', (req, res, next) => {
  });
 });
 app.get('/api/:coleccion/:id', (req, res, next) => {
- req.collection.findOne({ _id: id(req.params.id) }, (err, elemento) => {
+ const elementoId = req.params.id;
+ req.collection.findOne({ _id: id(elementoId) }, (err, elementoRecuperado) => {
  if (err) return next(err);
- res.json(elemento);
+ res.json(elementoRecuperado);
  });
 });
-app.post('/api/:coleccion', (req, res, next) => {
- const elemento = req.body;
- if (!elemento.nombre) {
- res.status(400).json({
- error: 'Bad data',
- description: 'Se precisa al menos un campo <nombre>'
- });
- } else {
- req.collection.save(elemento, (err, coleccionGuardada) => {
+app.post('/api/:coleccion', auth, (req, res, next) => {
+ const nuevoElemento = req.body;
+ req.collection.save(nuevoElemento, (err, coleccionGuardada) => {
  if (err) return next(err);
  res.json(coleccionGuardada);
  });
- }
 });
-app.put('/api/:coleccion/:id', (req, res, next) => {
+app.put('/api/:coleccion/:id', auth, (req, res, next) => {
  const elementoId = req.params.id;
- const elementoNuevo = req.body;
- req.collection.update(
- { _id: id(elementoId) },
- { $set: elementoNuevo },
+ const nuevosRegistros = req.body;
+ req.collection.update( { _id: id(elementoId) },
+ { $set: nuevosRegistros },
  { safe: true, multi: false },
- (err, elementoModif) => {
+ (err, result) => {
  if (err) return next(err);
- res.json(elementoModif);
+ res.json(result);
  });
 });
-app.delete('/api/:coleccion/:id', (req, res, next) => {
+app.delete('/api/:coleccion/:id', auth, (req, res, next) => {
  const elementoId = req.params.id;
  req.collection.remove({ _id: id(elementoId) }, (err, resultado) => {
  if (err) return next(err);
@@ -74,5 +97,5 @@ app.delete('/api/:coleccion/:id', (req, res, next) => {
 });
 // Iniciamos la aplicación
 app.listen(port, () => {
- console.log(`API REST ejecutándose en http://localhost:${port}/api/:coleccion/:id`);
-});
+ console.log(`API RESTful CRUD ejecutándose en https://localhost:${port}/api/{colecciones}/{id}`);
+}); 

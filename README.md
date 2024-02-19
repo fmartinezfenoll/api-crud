@@ -64,7 +64,7 @@ npm start
 
 ## Pruebas con Postman 📯
 
-_El archivo `CRUD_postman_collection.json` contiene una colección de pruebas para todos los **endpoints** del API del servicio._
+_El archivo `SD PRODUCT API REST.postman_collection.json` contiene una colección de pruebas para todos los **endpoints** del API del servicio._
 
 _Para poder emplearlo desde **Postman**, bastará con importar el archivo y, si fuera necesario, modificar el puerto de escucha del servidor._
 
