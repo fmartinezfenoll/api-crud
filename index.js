@@ -1,15 +1,20 @@
 'use strict'
-// inportaciones
+// importaciones
 const config = require('./config');
-const express = require('express');
 const logger = require('morgan');
 const mongojs = require('mongojs');
 const cors = require('cors');
+const helmet = require('helmet'); 
+var express = require('express');
+var fs = require('fs');
+var https = require('https');
+var app = express(); 
+
+
 // Declaraciones
 const port = config.PORT;
 const urlDB = config.DB;
 const accessToken = config.TOKEN;
-const app = express();
 const db = mongojs(urlDB); // Enlazamos con la DB
 const id = mongojs.ObjectID; // Función para convertir un id textual en un objectID
 // Declaraciones para CORS
@@ -25,7 +30,6 @@ var allowCrossTokenHeaders = (req, res, next) => {
  res.header("Access-Control-Allow-Headers", "*"); // Mejor acotar (Content-type)
  return next();
 };
-// middleware
 var auth = (req, res, next) => { // declaramos la función auth
  if ( !req.headers.token ) { // si no se envía el token...
  res.status(401).json({ result: 'NO', msg: "Envía un código válido en la cabecera 'token'"});
@@ -39,6 +43,7 @@ var auth = (req, res, next) => { // declaramos la función auth
  };
 };
 // middlewares
+app.use(helmet()); 
 app.use(logger('dev')); // probar con: tiny, short, dev, common, combined
 app.use(express.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
 app.use(express.json()); // parse application/json
@@ -96,6 +101,9 @@ app.delete('/api/:coleccion/:id', auth, (req, res, next) => {
  });
 });
 // Iniciamos la aplicación
-app.listen(port, () => {
- console.log(`API RESTful CRUD ejecutándose en https://localhost:${port}/api/{colecciones}/{id}`);
-}); 
+https.createServer({
+    cert: fs.readFileSync('./cert/cert.pem'),
+    key: fs.readFileSync('./cert/key.pem')
+    },app).listen(port, function(){
+    console.log('API RESTful CRUD ejecutándose en https://localhost:${port}/api/{colecciones}/{id}');
+   }); 
