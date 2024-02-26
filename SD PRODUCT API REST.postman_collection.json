@@ -7,6 +7,43 @@
 	},
 	"item": [
 		{
+			"name": "Devuelve la API",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "password1234",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"tipo\": \"Hermana\",\n\"nombre\": \"Rosana\",\n\"edad\": 15\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Devuelve objetos de familia",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -144,43 +181,6 @@
 						"api",
 						"familia",
 						"65d33f476c3166106637f3d4"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Devuelve la API",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "token",
-						"value": "password1234",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\"tipo\": \"Hermana\",\n\"nombre\": \"Rosana\",\n\"edad\": 15\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/api",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"api"
 					]
 				}
 			},
