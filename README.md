@@ -74,24 +74,291 @@ Para ejecutar con postman una vez hayas importado la colección, bastará con ha
 
 ### Analice las pruebas end-to-end 🔩
 
-_Explica qué verifican estas pruebas y por qué_
+Este debería de ser el resultado de ejecutar las pruebas
 
+
+# Authentication
+Usaré cuando sea necesario el token password1234 para autentificación cors
+## GET Devuelve la API
+
+GET /api
+
+This API endpoint is a HTTP GET request to retrieve data from https://localhost:3000/api. The request does not require any specific payload parameters. Upon successful execution, the API returns a JSON response with a status code of 200 and an empty array as the content.
+
+> Body Parameters
+
+```json
+{}
 ```
-Proporciona un ejemplo
+
+### Params
+
+|Name|Location|Type|Required|Description|
+|---|---|---|---|---|
+|token|header|string| yes |none|
+|body|body|object| no |none|
+
+> Response Examples
+
+> Success
+
+```json
+[
+  "mascotas",
+  "familia"
+]
 ```
 
-### Y las pruebas de estilo de codificación ⌨️
+### Responses
 
-_Explica qué verifican estas pruebas y por qué_
+|HTTP Status Code |Meaning|Description|Data schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
 
+### Responses Data Schema
+
+## GET Devuelve objetos de familia
+
+GET /api/familia
+
+> Body Parameters
+
+```json
+{}
 ```
-Proporciona un ejemplo
-``` 
-<!--
-## Despliegue 📦
 
-_Agrega notas adicionales sobre cómo hacer deploy._
--->
+### Params
+
+|Name|Location|Type|Required|Description|
+|---|---|---|---|---|
+|body|body|object| no |none|
+
+> Response Examples
+
+> Success
+
+```json
+[
+  {
+    "_id": "65ca39ed3ccd093d99c25a24",
+    "tipo": "Padre",
+    "nombre": "Miguel",
+    "edad": 23
+  },
+  {
+    "_id": "65d33ee96c3166106637f3d2",
+    "tipo": "Hermana",
+    "nombre": "Rosana",
+    "edad": 15
+  },
+  {
+    "_id": "65dca41a0194210ba3ada6b0",
+    "tipo": "tia",
+    "nombre": "María",
+    "edad": 74
+  },
+  {
+    "_id": "65e3561116d53609b251eac5",
+    "tipo": "Hermana",
+    "nombre": "Rosana",
+    "edad": 15
+  }
+]
+```
+
+### Responses
+
+|HTTP Status Code |Meaning|Description|Data schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
+
+### Responses Data Schema
+
+## POST Crea objeto en familia
+
+POST /api/familia
+
+> Body Parameters
+
+```json
+{
+  "tipo": "Hermana",
+  "nombre": "Rosana",
+  "edad": 15
+}
+```
+
+### Params
+
+|Name|Location|Type|Required|Description|
+|---|---|---|---|---|
+|token|header|string| yes |none|
+|body|body|object| no |none|
+|» tipo|body|string| yes |none|
+|» nombre|body|string| yes |none|
+|» edad|body|integer| yes |none|
+
+> Response Examples
+
+> Success
+
+```json
+{
+  "tipo": "Hermana",
+  "nombre": "Rosana",
+  "edad": 15,
+  "_id": "65e36758eb524f145ddc2c58"
+}
+```
+
+```json
+{
+  "result": "NO",
+  "msg": "Envía un código válido en la cabecera 'token'"
+}
+```
+
+### Responses
+
+|HTTP Status Code |Meaning|Description|Data schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
+
+### Responses Data Schema
+
+## GET Devuelve un item con id
+
+GET /api/familia/65d33ee96c3166106637f3d2
+
+> Body Parameters
+
+```json
+{}
+```
+
+### Params
+
+|Name|Location|Type|Required|Description|
+|---|---|---|---|---|
+|token|header|string| no |none|
+|body|body|object| no |none|
+
+> Response Examples
+
+> Success
+
+```json
+{
+  "_id": "65d33ee96c3166106637f3d2",
+  "tipo": "Hermana",
+  "nombre": "Rosana",
+  "edad": 15
+}
+```
+
+### Responses
+
+|HTTP Status Code |Meaning|Description|Data schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
+
+### Responses Data Schema
+
+## DELETE Elimina un objeto de familia
+
+DELETE /api/familia/65d33e426c3166106637f3d1
+
+> Body Parameters
+
+```json
+{}
+```
+
+### Params
+
+|Name|Location|Type|Required|Description|
+|---|---|---|---|---|
+|token|header|string| yes |none|
+|body|body|object| no |none|
+
+> Response Examples
+
+> Success
+
+```json
+{
+  "n": 0,
+  "ok": 1,
+  "deletedCount": 0
+}
+```
+
+```json
+{
+  "result": "NO",
+  "msg": "Envía un código válido en la cabecera 'token'"
+}
+```
+
+### Responses
+
+|HTTP Status Code |Meaning|Description|Data schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
+
+### Responses Data Schema
+
+## PUT Modifica familia
+
+PUT /api/familia/65d33f476c3166106637f3d4
+
+> Body Parameters
+
+```json
+{
+  "tipo": "abuela",
+  "nombre": "María",
+  "edad": 74
+}
+```
+
+### Params
+
+|Name|Location|Type|Required|Description|
+|---|---|---|---|---|
+|token|header|string| yes |none|
+|body|body|object| no |none|
+|» tipo|body|string| yes |none|
+|» nombre|body|string| yes |none|
+|» edad|body|integer| yes |none|
+
+> Response Examples
+
+> Success
+
+```json
+{
+  "n": 0,
+  "nModified": 0,
+  "ok": 1
+}
+```
+
+```json
+{
+  "result": "NO",
+  "msg": "Envía un código válido en la cabecera 'token'"
+}
+```
+
+### Responses
+
+|HTTP Status Code |Meaning|Description|Data schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|Success|Inline|
+
+
+
 ## Construido con 🛠️
 
 * [Express](https://expressjs.com/es/) - Infraestructura de aplicaciones web Node.js mÃ­nima y flexible que proporciona un conjunto sólido de caracterí­sticas para las aplicaciones web y móviles.
