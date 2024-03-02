@@ -68,9 +68,9 @@ _El archivo `SD PRODUCT API REST.postman_collection.json` contiene una colecció
 
 _Para poder emplearlo desde **Postman**, bastará con importar el archivo y, si fuera necesario, modificar el puerto de escucha del servidor._
 
-<!-- ## Ejecutando las pruebas ⚙️
+ ## Ejecutando las pruebas ⚙️
 
-_Explica cómo ejecutar las pruebas automatizadas para este sistema._
+Para ejecutar con postman una vez hayas importado la colección, bastará con hacer click en los 3 puntos y ejectuar la colección
 
 ### Analice las pruebas end-to-end 🔩
 
@@ -86,7 +86,7 @@ _Explica qué verifican estas pruebas y por qué_
 
 ```
 Proporciona un ejemplo
-``` -->
+``` 
 <!--
 ## Despliegue 📦
 

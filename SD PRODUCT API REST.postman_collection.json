@@ -22,7 +22,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\"tipo\": \"Hermana\",\n\"nombre\": \"Rosana\",\n\"edad\": 15\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -54,7 +54,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\"tipo\": \"Hermano\",\n\"nombre\": \"Pepe\",\n\"edad\": 46\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -87,12 +87,13 @@
 					{
 						"key": "token",
 						"value": "password1234",
-						"type": "text"
+						"type": "text",
+						"disabled": true
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\"tipo\": \"abuela\",\n\"nombre\": \"María\",\n\"edad\": 74\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -100,7 +101,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://localhost:3000/api/familia/65d33f476c3166106637f3d4",
+					"raw": "https://localhost:3000/api/familia/65d33ee96c3166106637f3d2",
 					"protocol": "https",
 					"host": [
 						"localhost"
@@ -109,7 +110,7 @@
 					"path": [
 						"api",
 						"familia",
-						"65d33f476c3166106637f3d4"
+						"65d33ee96c3166106637f3d2"
 					]
 				}
 			},
@@ -128,7 +129,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\"tipo\": \"abuela\",\n\"nombre\": \"María\",\n\"edad\": 74\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"

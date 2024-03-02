@@ -19,15 +19,7 @@ const db = mongojs(urlDB); // Enlazamos con la DB
 const id = mongojs.ObjectID; // Función para convertir un id textual en un objectID
 
 
-// middlewares
-app.use(helmet());
-app.use(logger("dev")); // probar con: tiny, short, dev, common, combined
-app.use(express.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
-app.use(express.json()); // parse application/json
-app.use(cors()); // activamos CORS
-app.use(allowCrossTokenOrigin); // configuramos origen permitido para CORS
-app.use(allowCrossTokenMethods); // configuramos métodos permitidos para CORS
-app.use(allowCrossTokenHeaders); // configuramos cabeceras permitidas para CORS
+
 
 
 // Declaraciones para CORS
@@ -63,7 +55,15 @@ var auth = (req, res, next) => {
   }
 };
 
-
+// middlewares
+app.use(helmet());
+app.use(logger("dev")); // probar con: tiny, short, dev, common, combined
+app.use(express.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
+app.use(express.json()); // parse application/json
+app.use(cors()); // activamos CORS
+app.use(allowCrossTokenOrigin); // configuramos origen permitido para CORS
+app.use(allowCrossTokenMethods); // configuramos métodos permitidos para CORS
+app.use(allowCrossTokenHeaders); // configuramos cabeceras permitidas para CORS
 
 // routes
 app.param("coleccion", (req, res, next, coleccion) => {
