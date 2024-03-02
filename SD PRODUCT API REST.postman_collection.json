@@ -30,8 +30,8 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api",
-					"protocol": "http",
+					"raw": "https://localhost:3000/api",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],
@@ -39,7 +39,8 @@
 					"path": [
 						"api"
 					]
-				}
+				},
+				"description": "\nThis API endpoint is a HTTP GET request to retrieve data from https://localhost:3000/api. The request does not require any specific payload parameters. Upon successful execution, the API returns a JSON response with a status code of 200 and an empty array as the content.\n"
 			},
 			"response": []
 		},
@@ -61,8 +62,8 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/familia",
-					"protocol": "http",
+					"raw": "https://localhost:3000/api/familia",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],
@@ -99,8 +100,8 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/familia/65d33f476c3166106637f3d4",
-					"protocol": "http",
+					"raw": "https://localhost:3000/api/familia/65d33f476c3166106637f3d4",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],
@@ -135,8 +136,8 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/familia/65d33e426c3166106637f3d1",
-					"protocol": "http",
+					"raw": "https://localhost:3000/api/familia/65d33e426c3166106637f3d1",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],
@@ -171,8 +172,8 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/familia/65d33f476c3166106637f3d4",
-					"protocol": "http",
+					"raw": "https://localhost:3000/api/familia/65d33f476c3166106637f3d4",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],
@@ -207,8 +208,8 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/familia",
-					"protocol": "http",
+					"raw": "https://localhost:3000/api/familia",
+					"protocol": "https",
 					"host": [
 						"localhost"
 					],

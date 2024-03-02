@@ -10,12 +10,26 @@ var fs = require("fs");
 var https = require("https");
 var app = express();
 
+
 // Declaraciones
 const port = config.PORT;
 const urlDB = config.DB;
 const accessToken = config.TOKEN;
 const db = mongojs(urlDB); // Enlazamos con la DB
 const id = mongojs.ObjectID; // Función para convertir un id textual en un objectID
+
+
+// middlewares
+app.use(helmet());
+app.use(logger("dev")); // probar con: tiny, short, dev, common, combined
+app.use(express.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
+app.use(express.json()); // parse application/json
+app.use(cors()); // activamos CORS
+app.use(allowCrossTokenOrigin); // configuramos origen permitido para CORS
+app.use(allowCrossTokenMethods); // configuramos métodos permitidos para CORS
+app.use(allowCrossTokenHeaders); // configuramos cabeceras permitidas para CORS
+
+
 // Declaraciones para CORS
 var allowCrossTokenOrigin = (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*"); // Permiso a cualquier URL. Mejor acotar
@@ -33,12 +47,10 @@ var auth = (req, res, next) => {
   // declaramos la función auth
   if (!req.headers.token) {
     // si no se envía el token...
-    res
-      .status(401)
-      .json({
-        result: "NO",
-        msg: "Envía un código válido en la cabecera 'token'",
-      });
+    res.status(401).json({
+      result: "NO",
+      msg: "Envía un código válido en la cabecera 'token'",
+    });
     return;
   }
   const queToken = req.headers.token; // recogemos el token de la cabecera llamada “token”
@@ -50,15 +62,9 @@ var auth = (req, res, next) => {
     res.status(401).json({ result: "NO", msg: "No autorizado" });
   }
 };
-// middlewares
-app.use(helmet());
-app.use(logger("dev")); // probar con: tiny, short, dev, common, combined
-app.use(express.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
-app.use(express.json()); // parse application/json
-app.use(cors()); // activamos CORS
-app.use(allowCrossTokenOrigin); // configuramos origen permitido para CORS
-app.use(allowCrossTokenMethods); // configuramos métodos permitidos para CORS
-app.use(allowCrossTokenHeaders); // configuramos cabeceras permitidas para CORS
+
+
+
 // routes
 app.param("coleccion", (req, res, next, coleccion) => {
   req.collection = db.collection(coleccion);
@@ -110,6 +116,9 @@ app.delete("/api/:coleccion/:id", auth, (req, res, next) => {
     res.json(resultado);
   });
 });
+
+
+
 // Iniciamos la aplicación
 https
   .createServer(
