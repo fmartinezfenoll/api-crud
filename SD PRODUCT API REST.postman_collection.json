@@ -42,10 +42,7 @@
 				},
 				"description": "\nThis API endpoint is a HTTP GET request to retrieve data from https://localhost:3000/api. The request does not require any specific payload parameters. Upon successful execution, the API returns a JSON response with a status code of 200 and an empty array as the content.\n"
 			},
-			"response": [
-				"mascotas",
-				"familia"
-			]
+			"response": []
 		},
 		{
 			"name": "Devuelve objetos de familia",
@@ -77,32 +74,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"_id": "65ca39ed3ccd093d99c25a24",
-					"tipo": "Padre",
-					"nombre": "Miguel",
-					"edad": 23
-				},
-				{
-					"_id": "65d33ee96c3166106637f3d2",
-					"tipo": "Hermana",
-					"nombre": "Rosana",
-					"edad": 15
-				},
-				{
-					"_id": "65dca41a0194210ba3ada6b0",
-					"tipo": "tia",
-					"nombre": "María",
-					"edad": 74
-				},
-				{
-					"_id": "65e3561116d53609b251eac5",
-					"tipo": "Hermana",
-					"nombre": "Rosana",
-					"edad": 15
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Devuelve un item con id",
@@ -142,14 +114,7 @@
 					]
 				}
 			},
-			"response": [
-				{
-					"_id": "65d33ee96c3166106637f3d2",
-					"tipo": "Hermana",
-					"nombre": "Rosana",
-					"edad": 15
-				}
-			]
+			"response": []
 		},
 		{
 			"name": "Elimina un objeto de familia",
@@ -185,11 +150,7 @@
 					]
 				}
 			},
-			"response": [{
-				"n": 0,
-				"ok": 1,
-				"deletedCount": 0
-			}]
+			"response": []
 		},
 		{
 			"name": "Modifica familia",
@@ -225,11 +186,7 @@
 					]
 				}
 			},
-			"response": [{
-				"n": 0,
-				"nModified": 0,
-				"ok": 1
-			}]
+			"response": []
 		},
 		{
 			"name": "Crea objeto en familia",
@@ -264,12 +221,7 @@
 					]
 				}
 			},
-			"response": [{
-				"tipo": "Hermana",
-				"nombre": "Rosana",
-				"edad": 15,
-				"_id": "65e36290e5637711a6923c93"
-			}]
+			"response": []
 		}
 	]
 }
