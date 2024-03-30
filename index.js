@@ -9,15 +9,14 @@ var express = require("express");
 var fs = require("fs");
 var https = require("https");
 var app = express();
-
+const TokenHelper = require('./helpers/token.helper'); 
 
 // Declaraciones
 const port = config.PORT;
 const urlDB = config.DB;
-const accessToken = config.TOKEN;
 const db = mongojs(urlDB); // Enlazamos con la DB
 const id = mongojs.ObjectID; // Función para convertir un id textual en un objectID
-const TokenHelper = require('./helpers/token.helper'); 
+
 
 
 // Declaraciones para CORS
