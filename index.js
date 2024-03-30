@@ -17,9 +17,7 @@ const urlDB = config.DB;
 const accessToken = config.TOKEN;
 const db = mongojs(urlDB); // Enlazamos con la DB
 const id = mongojs.ObjectID; // Función para convertir un id textual en un objectID
-
-
-
+const TokenHelper = require('./helpers/token.helper'); 
 
 
 // Declaraciones para CORS
@@ -36,24 +34,41 @@ var allowCrossTokenHeaders = (req, res, next) => {
   return next();
 };
 var auth = (req, res, next) => {
-  // declaramos la función auth
-  if (!req.headers.token) {
-    // si no se envía el token...
-    res.status(401).json({
-      result: "NO",
-      msg: "Envía un código válido en la cabecera 'token'",
+  // Comprobamos que han enviado el token tipo Bearer en el Header
+  if (!req.headers.authorization) {
+    return res.status(401).send({
+      result: "KO",
+      message:
+        "Cabecera de autenticación tipo Bearer no encontrada [Authorization: Bearer jwtToken]",
     });
-    return;
   }
-  const queToken = req.headers.token; // recogemos el token de la cabecera llamada “token”
-  if (queToken === accessToken) {
-    // si coincide con nuestro password...
-    return next(); // continuamos con la ejecución del código
-  } else {
-    // en caso contrario...
-    res.status(401).json({ result: "NO", msg: "No autorizado" });
+  const token = req.headers.authorization.split(" ")[1]; // El formato es: Authorization: "Bearer JWT"
+  // Comprobamos que han enviado el token
+  if (!token) {
+    return res.status(401).send({
+      result: "KO",
+      message:
+        "Token de acceso JWT no encontrado dentro de la cabecera [Authorization: Bearer jwtToken]",
+    });
   }
+  // Verificamos que el token es correcto
+  TokenHelper.decodificaToken(token)
+    .then((userId) => {
+      req.user = {
+        id: userId,
+        token: token,
+      };
+      return next();
+    })
+    .catch((response) => {
+      res.status(response.status);
+      res.json({
+        result: "KO",
+        message: response.message,
+      });
+    });
 };
+ 
 
 // middlewares
 app.use(helmet());
@@ -70,19 +85,19 @@ app.param("coleccion", (req, res, next, coleccion) => {
   req.collection = db.collection(coleccion);
   return next();
 });
-app.get("/api", (req, res, next) => {
+app.get("/api",auth, (req, res, next) => {
   db.getCollectionNames((err, colecciones) => {
     if (err) return next(err);
     res.json(colecciones);
   });
 });
-app.get("/api/:coleccion", (req, res, next) => {
+app.get("/api/:coleccion", auth, (req, res, next) => {
   req.collection.find((err, coleccion) => {
     if (err) return next(err);
     res.json(coleccion);
   });
 });
-app.get("/api/:coleccion/:id", (req, res, next) => {
+app.get("/api/:coleccion/:id", auth, (req, res, next) => {
   const elementoId = req.params.id;
   req.collection.findOne({ _id: id(elementoId) }, (err, elementoRecuperado) => {
     if (err) return next(err);
